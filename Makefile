@@ -188,7 +188,15 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
-
+	$U/_activitymon\
+	$U/_stress\
+	$U/_demo\
+	$U/_heattest\
+	$U/_heatbench\
+	$U/_duotest\
+	$U/_processmon\
+	$U/_processmondy\
+	$U/_lazytest\
 
 
 

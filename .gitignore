@@ -1,25 +1,166 @@
-*~
-_*
+# ============================================================================
+# xv6 Enhanced Kernel - .gitignore
+# ============================================================================
+
+# -------------------- Compiled Object Files --------------------
 *.o
 *.d
 *.asm
 *.sym
-*.img
-vectors.S
-bootblock
-entryother
-initcode
-initcode.out
-kernelmemfs
-mkfs
+
+# -------------------- Kernel Binaries --------------------
 kernel/kernel
-user/usys.S
+kernel/kernel.ld~
+
+# -------------------- User Programs (compiled) --------------------
+user/_*
+!user/*.c
+!user/*.S
+!user/*.h
+!user/*.pl
+!user/*.ld
+!user/*.sh
+
+# -------------------- File System Images --------------------
+fs.img
+*.img
+
+# -------------------- Mkfs Tool --------------------
+mkfs/mkfs
+
+# -------------------- Debugging Files --------------------
 .gdbinit
-*.zip
-xv6.out*
-.vagrant/
-submissions/
-ph
-barrier
-/lab-*.json
+.gdb_history
+
+# -------------------- Editor and IDE Files --------------------
+# Vim
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# -------------------- OS Generated Files --------------------
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+.directory
+.Trash-*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# -------------------- Build Artifacts --------------------
+*.a
+*.so
+*.exe
+*.out
+a.out
+
+# -------------------- Tags and Indexes --------------------
+tags
+TAGS
+cscope.out
+cscope.in.out
+cscope.po.out
+
+# -------------------- Temporary Files --------------------
+*.tmp
+*.temp
+*.log
+*.bak
+*.orig
+
+# -------------------- QEMU Files --------------------
+qemu.log
+serial.log
+
+# -------------------- Python Cache (for grading scripts) --------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# -------------------- Documentation Build --------------------
+docs/_build/
+docs/.doctrees/
+
+# -------------------- Test Results --------------------
+test_results/
+*.test
+
+# -------------------- Personal Notes --------------------
+notes.txt
+TODO.txt
+NOTES.md
+
+# -------------------- Backup Files --------------------
+*.backup
+*~backup
+
+# -------------------- Coverage Reports --------------------
+*.gcov
+*.gcda
+*.gcno
+coverage/
+
+# -------------------- Specific to this project --------------------
+# Compiled binaries that should be ignored
+user/_heatmon
+user/_activitymon
+user/_lazytest
+user/_heattest
+user/_stress
+user/_processmon
+
+# Custom test outputs
+benchmark_results.txt
+performance_logs/
+
+# Personal development files
+dev_notes/
+scratch/
+
+# -------------------- Keep Important Files --------------------
+# Force include certain files that might match patterns above
+!Makefile
+!README
+!README.md
+!LICENSE
+!.gitignore
+
+# Keep source files
+!*.c
+!*.h
+!*.S
+!*.pl
+!*.sh
+!*.py
+
+# Keep configuration
+!conf/
+!conf/*

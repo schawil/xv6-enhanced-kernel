@@ -63,6 +63,7 @@ void            ramdiskrw(struct buf*);
 void*           kalloc(void);
 void            kfree(void *);
 void            kinit(void);
+void            get_memory_stats(uint64 *, uint64 *);
 
 // log.c
 void            initlog(int, struct superblock*);
@@ -106,6 +107,7 @@ void            yield(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
+void            kill_all_user_processes(void); // <--- AJOUT
 
 // swtch.S
 void            swtch(struct context*, struct context*);
@@ -142,7 +144,7 @@ int             fetchaddr(uint64, uint64*);
 void            syscall();
 
 // trap.c
-extern uint     ticks;
+extern uint64     ticks;
 void            trapinit(void);
 void            trapinithart(void);
 extern struct spinlock tickslock;
@@ -173,6 +175,7 @@ uint64          walkaddr(pagetable_t, uint64);
 int             copyout(pagetable_t, uint64, char *, uint64);
 int             copyin(pagetable_t, char *, uint64, uint64);
 int             copyinstr(pagetable_t, char *, uint64, uint64);
+int             lazy_alloc(pagetable_t, uint64);  // lazy allocation function 
 
 // plic.c
 void            plicinit(void);

@@ -174,7 +174,7 @@ mappages(pagetable_t pagetable, uint64 va, uint64 size, uint64 pa, int perm)
 // Remove npages of mappings starting from va. va must be
 // page-aligned. The mappings must exist.
 // Optionally free the physical memory.
-void
+/* void
 uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
 {
   uint64 a;
@@ -188,6 +188,36 @@ uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
       panic("uvmunmap: walk");
     if((*pte & PTE_V) == 0)
       panic("uvmunmap: not mapped");
+    if(PTE_FLAGS(*pte) == PTE_V)
+      panic("uvmunmap: not a leaf");
+    if(do_free){
+      uint64 pa = PTE2PA(*pte);
+      kfree((void*)pa);
+    }
+    *pte = 0;
+  }
+} */
+
+
+void
+uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
+{
+  uint64 a;
+  pte_t *pte;
+
+  if((va % PGSIZE) != 0)
+    panic("uvmunmap: not aligned");
+
+  for(a = va; a < va + npages*PGSIZE; a += PGSIZE){
+    
+    // 1. Si la table des pages n'existe pas pour cette adresse
+    if((pte = walk(pagetable, a, 0)) == 0)
+      continue; // AVANT: panic("uvmunmap: walk"); -> MAINTENANT: on ignore et on continue
+
+    // 2. Si la page n'est pas marquée comme VALIDE (le fameux trou du Lazy)
+    if((*pte & PTE_V) == 0)
+      continue; // AVANT: panic("uvmunmap: not mapped"); -> MAINTENANT: on ignore
+
     if(PTE_FLAGS(*pte) == PTE_V)
       panic("uvmunmap: not a leaf");
     if(do_free){
@@ -334,7 +364,7 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
   }
   return 0;
 
- err:
+  err:
   uvmunmap(new, 0, i / PGSIZE, 1);
   return -1;
 }
@@ -448,4 +478,42 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
   } else {
     return -1;
   }
+}
+
+
+// ====== LAZY ALLOCATION =======
+
+int
+lazy_alloc(pagetable_t pagetable, uint64 va)
+{
+  char *mem;
+  uint64 a;
+  
+  // Align to page boundary
+  a = PGROUNDDOWN(va);
+  
+  // Check if already mapped (shouldn't happen in lazy alloc)
+  if(walkaddr(pagetable, a) != 0) {
+    // Page already exists, might be a different error
+    return 0;
+  }
+  
+  // Allocate one physical page
+  mem = kalloc();
+  if(mem == 0) {
+    // Out of memory
+    return -1;
+  }
+  
+  // Zero the page (security: don't leak kernel data)
+  memset(mem, 0, PGSIZE);
+  
+  // Map the page with user permissions (read/write)
+  if(mappages(pagetable, a, PGSIZE, (uint64)mem, PTE_R | PTE_W | PTE_U) != 0) {
+    // Mapping failed
+    kfree(mem);
+    return -1;
+  }
+  
+  return 0;
 }

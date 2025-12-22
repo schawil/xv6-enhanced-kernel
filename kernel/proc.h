@@ -103,5 +103,16 @@ struct proc {
   struct context context;      // swtch() here to run process
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
+
   char name[16];               // Process name (debugging)
+
+  // ============================================================
+  //        HEAT-AWARE SCHEDULER FIELDS 
+  // ============================================================
+  uint64 cpu_heat;             // CPU heat metric (0 = cold, increases with usage)
+  uint64 total_ticks;          // Total CPU ticks consumed (lifetime)
+  uint64 last_scheduled;       // Last tick this process was scheduled
+  uint64 times_skipped;        // Number of times skipped due to heat
+  uint64 heat_level;           // Current heat level: 0=COLD, 1=WARM, 2=HOT, 3=CRITICAL
+  
 };

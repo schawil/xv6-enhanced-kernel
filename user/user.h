@@ -1,5 +1,16 @@
 struct stat;
+struct rtcdate;
 
+// --- AJOUT : Définition complète de la structure partagée ---
+struct activity {
+  int cpu_percent;       // Charge CPU (0-100)
+  int mem_percent;       // RAM utilisée (0-100)
+  int user_activity;     // 1 = Clavier actif récemment
+  int interrupts;        // Nb interruptions
+  int state;             // 0 = LIBRE, 1 = OCCUPE
+  char timestamp[32];    // Horodatage
+};
+// -
 // system calls
 int fork(void);
 int exit(int) __attribute__((noreturn));
@@ -22,6 +33,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int getactivity(struct activity*); // <--- AJOUT
 
 // ulib.c
 int stat(const char*, struct stat*);
