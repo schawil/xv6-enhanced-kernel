@@ -497,7 +497,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Course:** INF4097 - Operating Systems Design  
 **Year:** 2025
 
-**Project Link:** [https://github.com/YOUR_USERNAME/xv6-enhanced-kernel](https://github.com/YOUR_USERNAME/xv6-enhanced-kernel)
+**Project Link:** [https://github.com/schawil/xv6-enhanced-kernel](https://github.com/schawil/xv6-enhanced-kernel)
 
 ---
 
