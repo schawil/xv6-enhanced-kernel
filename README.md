@@ -492,7 +492,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-**Author:** [Your Name]  
+**Author:** [schawil]  
 **University:** University of Yaoundé I  
 **Course:** INF4097 - Operating Systems Design  
 **Year:** 2025
