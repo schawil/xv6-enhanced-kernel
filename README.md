@@ -121,23 +121,23 @@ On-demand physical memory allocation for optimized RAM usage.
 ┌────────────▼────────────────────────┐
 │         Kernel Space                │
 │                                     │
-│  ┌─────────────────────────────┐   │
-│  │  getactivity()              │   │
-│  │  - CPU/MEM calculation      │   │
-│  │  - State determination      │   │
-│  └─────────────────────────────┘   │
+│  ┌─────────────────────────────┐    │
+│  │  getactivity()              │    │
+│  │  - CPU/MEM calculation      │    │
+│  │  - State determination      │    │
+│  └─────────────────────────────┘    │
 │                                     │
-│  ┌─────────────────────────────┐   │
-│  │  Heat-Aware Scheduler       │   │
-│  │  - cpu_heat tracking        │   │
-│  │  - Probabilistic skip       │   │
-│  └─────────────────────────────┘   │
+│  ┌─────────────────────────────┐    │
+│  │  Heat-Aware Scheduler       │    │
+│  │  - cpu_heat tracking        │    │
+│  │  - Probabilistic skip       │    │
+│  └─────────────────────────────┘    │
 │                                     │
-│  ┌─────────────────────────────┐   │
-│  │  Lazy Allocation            │   │
-│  │  - Page fault handler       │   │
-│  │  - lazy_alloc()             │   │
-│  └─────────────────────────────┘   │
+│  ┌─────────────────────────────┐    │
+│  │  Lazy Allocation            │    │
+│  │  - Page fault handler       │    │
+│  │  - lazy_alloc()             │    │
+│  └─────────────────────────────┘    │
 └─────────────────────────────────────┘
 ```
 
