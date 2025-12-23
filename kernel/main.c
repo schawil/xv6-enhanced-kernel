@@ -17,7 +17,7 @@ void main()
     consoleinit();
     printfinit();
     printf("\n");
-    printf("=================== BIENVENUE DANS XV6  -  Dr Hamza   =======================\n");
+    printf("===================== BIENVENUE DANS XV6  =========================\n");
     printf("\n");
     kinit();            // physical page allocator
     kvminit();          // create kernel page table
